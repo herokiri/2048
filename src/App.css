@@ -45,8 +45,61 @@ div {
     border-radius: 12px;
     min-width: 10px;
     min-height: 10px;
+    font-weight: 600;
 }
 
 .filled-cell {
     background-color: rgba(238, 228, 218, 0.80);
 }
+
+.tile-4 {
+    background-color: #ede0c8;
+}
+
+.tile-8 {
+    color: white;
+    background-color: #f2b179;
+}
+
+.tile-16 {
+    color: white;
+    background-color: #f59563;
+}
+
+.tile-32 {
+    color: white;
+    background-color: #f67c5f;
+}
+
+.tile-64 {
+    color: white;
+    background-color: #f65e3b;
+}
+
+.tile-128 {
+    color: white;
+    background-color: #edcf72;
+}
+
+.tile-256 {
+    color: white;
+    background-color: #edcc61;
+}
+
+.tile-512 {
+    color: white;
+    background-color: #edc850;
+}
+
+.tile-1024 {
+    color: white;
+    background-color: #edc53f;
+}
+
+.tile-2048 {
+    color: white;
+    background-color: #edc22e;
+}
+
+/* Продолжайте добавлять стили для других tile по аналогии */
+

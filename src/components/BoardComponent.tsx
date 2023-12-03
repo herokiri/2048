@@ -8,8 +8,7 @@ function BoardComponent() {
     const [board, setBoard] = useState(new Board());
 
     function move(direction: string) {
-        const movedBoard = board.clone(); // Create a copy of the board to avoid mutating the state directly
-        console.log(board);
+        const movedBoard = board.clone();
 
         switch (direction) {
             case "up":

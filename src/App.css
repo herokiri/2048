@@ -31,13 +31,22 @@ div {
     border-radius: 12px;
     display: grid;
     gap: 12px;
-    grid-template-columns: auto auto auto auto;
-    grid-template-rows:  auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows:  1fr 1fr 1fr 1fr;
 }
 
 .cell {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 50px;
     background: rgba(238, 228, 218, 0.35);
     border-radius: 12px;
     min-width: 10px;
     min-height: 10px;
+}
+
+.filled-cell {
+    background-color: rgba(238, 228, 218, 0.80);
 }

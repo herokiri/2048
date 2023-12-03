@@ -7,7 +7,7 @@ interface ICell {
 
 function CellComponent({cell}: ICell) {
     return (
-        <div className={'cell'}>
+        <div className={['cell', cell.amount ? "filled-cell" : ""].join(' ')}>
             {cell.amount}
         </div>
     )

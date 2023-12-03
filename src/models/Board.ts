@@ -1,8 +1,11 @@
 import {Cell} from "./Cell";
 
 export class Board {
-    cells: Cell[][] = [];
+    cells: Cell[][];
 
+    constructor() {
+        this.cells = [];  // Initialize it properly.
+    }
     initCells() {
         for(let i = 0; i < 4; i++) {
             let row: Cell[] = [];

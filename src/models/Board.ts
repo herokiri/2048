@@ -2,9 +2,11 @@ import {Cell} from "./Cell";
 
 export class Board {
     cells: Cell[][];
+    copyCells: Cell[][];
 
     constructor() {
         this.cells = [];  // Initialize it properly.
+        this.initCells();  // Call this method to initialize the cells.
     }
     initCells() {
         for(let i = 0; i < 4; i++) {
@@ -16,7 +18,33 @@ export class Board {
         }
     }
 
+    private isBoardStateChanged(originalCells: Cell[][]): boolean {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                if (
+                    (this.cells[i][j]?.amount !== null && originalCells[i][j]?.amount !== this.cells[i][j]?.amount) ||
+                    (this.cells[i][j]?.amount === null && originalCells[i][j]?.amount !== null)
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    isLose(b1: Board, b2: Board): boolean {
+        b1.moveUp();
+        b1.moveDown();
+        b1.moveLeft();
+        b1.moveRight();
+        return  !b1.isBoardStateChanged(b2.cells);
+    }
+
+
+
     moveLeft() {
+        const originalCells = this.clone().cells;
+
         for (let i = 0; i < 4; i++) {
             // Filter out non-empty cells
             const nonEmptyCells = this.cells[i].filter(cell => cell.amount !== null);
@@ -42,11 +70,15 @@ export class Board {
             this.cells[i] = movedCells;
         }
         // After moving left, add a random cell
-        this.addRandomCell();
+        if (this.isBoardStateChanged(originalCells)) {
+            this.addRandomCell();
+        }
     }
 
 
     moveUp() {
+        const originalCells = this.clone().cells;
+
         for (let j = 0; j < 4; j++) {
             const column = this.cells.map(row => row[j]);
             const nonEmptyCells = column.filter(cell => cell.amount !== null);
@@ -68,10 +100,13 @@ export class Board {
             this.cells.forEach((row, i) => (row[j] = movedCells[i]));
         }
 
-        this.addRandomCell();
+        if (this.isBoardStateChanged(originalCells)) {
+            this.addRandomCell();
+        }
     }
 
     moveDown() {
+        const originalCells = this.clone().cells;
         for (let j = 0; j < 4; j++) {
             const column = this.cells.map(row => row[j]);
             const nonEmptyCells = column.filter(cell => cell.amount !== null);
@@ -93,10 +128,13 @@ export class Board {
             this.cells.forEach((row, i) => (row[j] = movedCells[i]));
         }
 
-        this.addRandomCell();
+        if (this.isBoardStateChanged(originalCells)) {
+            this.addRandomCell();
+        }
     }
 
     moveRight() {
+        const originalCells = this.clone().cells;
         for (let i = 0; i < 4; i++) {
             // Filter out non-empty cells
             const nonEmptyCells = this.cells[i].filter(cell => cell.amount !== null);
@@ -120,9 +158,10 @@ export class Board {
             // Update the row with the moved cells
             this.cells[i] = movedCells;
         }
-        // After moving left, add a random cell
-        this.addRandomCell();
 
+        if (this.isBoardStateChanged(originalCells)) {
+            this.addRandomCell();
+        }
     }
 
     addRandomCell() {

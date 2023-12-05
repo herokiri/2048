@@ -6,6 +6,7 @@ import CellComponent from "./CellComponent";
 function BoardComponent() {
     const [cells, setCells] = useState<Cell[][] | null>();
     const [board, setBoard] = useState(new Board());
+    const [isLose, setIsLose] = useState(false);
 
     function move(direction: string) {
         setBoard(prevBoard => {
@@ -27,6 +28,9 @@ function BoardComponent() {
                 default:
                     break;
             }
+            if(board.isLose(prevBoard.clone(), prevBoard.clone())) {
+                setIsLose(true);
+            }
 
             setCells(movedBoard.cells);
             return movedBoard;
@@ -35,7 +39,6 @@ function BoardComponent() {
 
     function initBoard() {
         const copyboard = board.clone();
-        copyboard.initCells();
         copyboard.addRandomCell();
         setBoard(copyboard);
         setCells(copyboard.cells);
@@ -73,6 +76,7 @@ function BoardComponent() {
             {/*<button onClick={() => move("down")}>down</button>*/}
             {/*<button onClick={() => move("right")}>right</button>*/}
             {/*<button onClick={() => move("left")}>left</button>*/}
+            {isLose && <h1>Вы проиграли !</h1>}
             <div className={"board"}>
                 {cells?.map((row) =>
                     row.map((cell) => <CellComponent key={cell.key} cell={cell} />)
